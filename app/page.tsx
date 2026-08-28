@@ -1,12 +1,30 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, MotionProps, Variants } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useMotionValue, useTransform, animate, useInView, circOut } from 'framer-motion';
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 
-const fadeUp = {
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.5, ease: 'easeOut' } 
+  },
+};
+
+const fadeUp: MotionProps = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
@@ -83,37 +101,35 @@ export default function Home() {
       {/* Hero Section */}
       <section className="bg-stone-900 text-white py-24 px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           className="max-w-3xl mx-auto"
         >
-          <Image
-            src="/scs-logo.jpg"
-            width={96}
-            height={96}
-            className="rounded-full mx-auto border-2 border-white/20"
-            alt="SCS Logo"
-          />
-          <h1 className="mt-8 text-4xl md:text-5xl font-bold tracking-tight">
+          <motion.div variants={itemVariants}>
+            <Image src="/scs-logo.jpg" width={96} height={96} className="rounded-full mx-auto border-2 border-white/20" alt="SCS Logo" />
+          </motion.div>
+
+          <motion.h1 variants={itemVariants} className="mt-8 text-4xl md:text-5xl font-bold tracking-tight">
             Service and Citizenship Society
-          </h1>
-          <p className="mt-4 text-lg md:text-xl text-rose-500 font-medium">
+          </motion.h1>
+
+          <motion.p variants={itemVariants} className="mt-4 text-lg md:text-xl text-[#cd4f61] font-medium">
             Serving Others, Inspiring Change.
-          </p>
-          <p className="mt-6 text-stone-300 text-base md:text-lg leading-relaxed">
-            The Service and Citizenship Society empowers students to create
-            meaningful change through service, leadership, and community
-            engagement.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          </motion.p>
+
+          <motion.p variants={itemVariants} className="mt-6 text-stone-300 text-base md:text-lg leading-relaxed">
+            The Service and Citizenship Society empowers students to create meaningful change through service, leadership, and community engagement.
+          </motion.p>
+
+          <motion.div variants={itemVariants} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="bg-[#cd4f61] hover:bg-rose-400 transition-colors text-white font-semibold px-8 py-3 rounded-full">
               Join SCS
             </button>
             <button className="bg-stone-800 hover:bg-stone-700 transition-colors text-white font-semibold px-8 py-3 rounded-full">
               View Events
             </button>
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -253,17 +269,31 @@ export default function Home() {
       {/* CTA Section */}
       <section className="bg-stone-900 py-20 px-6 text-center">
         <motion.div
-          {...fadeUp}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
           className="max-w-2xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <motion.h2 
+            variants={itemVariants}
+            className="text-3xl md:text-4xl font-bold text-white"
+          >
             Ready to Make an Impact?
-          </h2>
-          <p className="mt-4 text-stone-300">
+          </motion.h2>
+                
+          <motion.p 
+            variants={itemVariants}
+            className="mt-4 text-stone-300"
+          >
             Get involved today and be part of a community driving real change.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="bg-[#cd4f61] hover:bg-rose-700 transition-colors text-white font-semibold px-7 py-3 rounded-full">
+          </motion.p>
+                
+          <motion.div 
+            variants={itemVariants}
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <button className="bg-[#cd4f61] hover:bg-rose-400 transition-colors text-white font-semibold px-7 py-3 rounded-full">
               Join SCS
             </button>
             <button className="bg-stone-800 hover:bg-stone-700 transition-colors text-white font-semibold px-7 py-3 rounded-full">
@@ -272,7 +302,7 @@ export default function Home() {
             <button className="bg-white text-stone-900 hover:bg-stone-100 transition-colors font-semibold px-7 py-3 rounded-full">
               Explore Gallery
             </button>
-          </div>
+          </motion.div>
         </motion.div>
       </section>
     </main>
