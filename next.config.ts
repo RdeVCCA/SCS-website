@@ -1,13 +1,12 @@
 import type { NextConfig } from 'next';
 
 const isProd = process.env.NODE_ENV === 'production';
+const repoName = 'SCS-website';
 
 const nextConfig: NextConfig = {
-  // images: {
-  //   // formats: ['image/avif', 'image/webp', 'image/png', 'image/jpeg'],
-  // },
   output: 'export',
-  basePath: isProd ? `/SCS-website` : '',
+  basePath: isProd ? `/${repoName}` : '',
+  assetPrefix: isProd ? `/${repoName}/` : '',
   images: {
     unoptimized: true,
   },
