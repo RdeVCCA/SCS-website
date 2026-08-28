@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const isProd = process.env.NODE_ENV === 'production';
-const repoName = 'SCS-website';
+const repoName = 'rdevcca.github.io/SCS-website';
 
 const nextConfig: NextConfig = {
   output: 'export',
