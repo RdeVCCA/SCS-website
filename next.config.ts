@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   //   // formats: ['image/avif', 'image/webp', 'image/png', 'image/jpeg'],
   // },
   output: 'export',
-  basePath: isProd ? `/y-lead-2026` : '',
+  basePath: isProd ? `/SCS-website/` : '',
   images: {
     unoptimized: true,
   },
